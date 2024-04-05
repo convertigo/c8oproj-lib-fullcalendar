@@ -71,6 +71,9 @@ Describes the mobile application global properties
 </td>
 </tr>
 <tr>
+<td>calEvents</td><td>Locale such as 'en', 'fr', 'es' ..</td>
+</tr>
+<tr>
 <td>headerToolbar</td><td>A JSON Object representing the Header toolbar 
 ```
 {

@@ -16,6 +16,7 @@ scriptContent:
         		/*End_c8o_CompConstructor*/
         /*Begin_c8o_CompInitialization*/
         		this.calendarOptions = {
+        			events: this.calEvents,
         			headerToolbar: this.headerToolbar,
         			selectable: true,
         			selectMirror : true,
@@ -33,6 +34,11 @@ scriptContent:
         				case "locale": {
         					if(!changes[key].firstChange) {
         						this.calendarOptions["locale"] = changes[key].currentValue;
+        					}
+        				}
+        				case "calEvents": {
+        					if(!changes[key].firstChange) {
+        						this.calendarOptions["events"] = changes[key].currentValue;
         					}
         				}
         			}
@@ -193,3 +199,11 @@ scriptContent:
 ↓selectable [ngx.components.UICompVariable-1712332668650]: 
   comment: Enables the user to select events can be true or false
   value: true
+↓calEvents [ngx.components.UICompVariable-1712334912578]: 
+  comment: Locale such as 'en', 'fr', 'es' ..
+  value: |
+    '[{
+          id: ''a'',
+          title: ''my event'',
+          start: ''2018-09-01''
+        }]'

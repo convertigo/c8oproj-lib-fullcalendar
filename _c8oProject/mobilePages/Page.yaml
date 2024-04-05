@@ -118,6 +118,19 @@ title: First page
               			  day:      ''annee'',
               			  list:     ''liste''
               }'
+    ↓selectable [ngx.components.UIUseVariable-1712335132654]: 
+      comment: Enables the user to select events can be true or false
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:true
+    ↓calEvents [ngx.components.UIUseVariable-1712335132656]: 
+      binding: twoWayBinding
+      comment: Locale such as 'en', 'fr', 'es' ..
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: source:{"filter":"Local","project":"lib_FullCalendar","input":"","model":{"data":[{"localObject":"local"}],"path":"?.events","prefix":"","suffix":"","custom":"local.events","useCustom":true}}
 ↓Footer [ngx.components.UIDynamicElement-1491634242460]: 
   beanData: '{"ionBean":"Footer"}'
   comment: Page footer
@@ -147,3 +160,55 @@ title: First page
             - xmlizable: 
               - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
               - MobileSmartSourceType: plain:Action 2
+↓PageEvent [ngx.components.UIPageEvent-1712335169803]: 
+  ↓buildEvents [ngx.components.UICustomAction-1712335176611]: 
+    actionValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+        - com.twinsoft.convertigo.beans.common.FormatedContent: 
+          →: |
+            '		page.c8o.log.debug(''[MB] ''+ props.actionFunction +'': ''+ props.actionName);
+            		
+            		// Function to add days to a date
+            		let addDays = function (days) {
+            		  const result = new Date();
+            		  result.setDate(result.getDate() + days);
+            		  return result;
+            		}
+            
+            		// Function to add random minutes to a date
+            		let addRandomMinutes = function (date, maxMinutes) {
+            		  const result = new Date(date);
+            		  const randomMinutes = Math.floor(Math.random() * maxMinutes);
+            		  result.setMinutes(result.getMinutes() + randomMinutes);
+            		  return result;
+            		}
+            		
+            		let events =[];
+            		
+            		// build a list of events with a random date
+            			
+            		let startDate = new Date()
+            		for (let i = 0; i<10; i++) {
+            			let randomDay = Math.floor(Math.random() * 7);
+              			let baseDate = addDays(randomDay);
+            
+            			// Assume a week has 10,080 minutes (7 days * 24 hours * 60 minutes)
+            			// Generate a random time within the week to add
+            			let dateWithRandomTime = addRandomMinutes(baseDate, 10080 / 10);
+            			events.push({
+            		      id: ''ID-'' + i,
+            		      title: ''my Demo Event'' + i,
+            		      start: dateWithRandomTime
+            			})
+            		}
+            		resolve(events);
+            '
+    ↓SetLocal [ngx.components.UIDynamicAction-1712335189451]: 
+      beanData: |
+        '{
+         "ionBean": "SetLocalAction",
+         "Property": "plain:events",
+         "Value": "source:{\"filter\":\"Action\",\"project\":\"lib_FullCalendar\",\"input\":\"\",\"model\":{\"data\":[{\"priority\":1712335176611,\"rootEvent\":false,\"pageLocals\":false},{\"priority\":1712335169803,\"rootEvent\":true,\"pageLocals\":false}],\"path\":\"?.out\",\"prefix\":\"\",\"suffix\":\"\",\"custom\":\"\",\"useCustom\":false}}"
+        }'
+      tagName: SetLocal

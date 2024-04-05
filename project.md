@@ -109,7 +109,7 @@ Locale such as 'en', 'fr', 'es' ..
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;selectable
 </td>
 <td>
-Locale such as 'en', 'fr', 'es' ..
+Enables the user to select events can be true or false
 </td>
 </tr>
 </table>

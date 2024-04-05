@@ -29,13 +29,13 @@ For more technical informations : [documentation](./project.md)
      <tr><td>To contribute</td><td>
 
      ```
-     lib_FullCalendar=/Users/olivierpicciotto/wrks/lib_FullCalendar/.git:branch=master
+     lib_FullCalendar=https://github.com/convertigo/c8oproj-lib-fullcalendar.git:branch=master
      ```
      </td></tr>
      <tr><td>To simply use</td><td>
 
      ```
-     lib_FullCalendar=/Users/olivierpicciotto/wrks/lib_FullCalendar//archive/master.zip
+     lib_FullCalendar=https://github.com/convertigo/c8oproj-lib-fullcalendar/archive/master.zip
      ```
      </td></tr>
     </table>
@@ -87,7 +87,7 @@ Describes the mobile application global properties
 <td>locale</td><td>Locale such as 'en', 'fr', 'es' ..</td>
 </tr>
 <tr>
-<td>selectable</td><td>Locale such as 'en', 'fr', 'es' ..</td>
+<td>selectable</td><td>Enables the user to select events can be true or false</td>
 </tr>
 </table>
 

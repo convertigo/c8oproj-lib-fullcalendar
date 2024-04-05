@@ -191,5 +191,5 @@ scriptContent:
     			  list:     ''list''
     			}'
 ↓selectable [ngx.components.UICompVariable-1712332668650]: 
-  comment: Locale such as 'en', 'fr', 'es' ..
+  comment: Enables the user to select events can be true or false
   value: true

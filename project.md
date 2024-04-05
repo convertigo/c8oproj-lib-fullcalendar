@@ -2,7 +2,8 @@
 # ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/core/images/project_color_16x16.png?raw=true "Project") lib_FullCalendar
 
 # This is the FullCalendar Library for Convertigo Low Code studio
-Use this library to provider Calendar with multiple views to your applications .
+Use this library to provider Calendar with multiple views to your applications. the library is based on the FullCalendar component https://fullcalendar.io/
+
 
 
 <details><summary><span style="color:DarkGoldenRod"><i>Connectors</i></span></summary><blockquote><p>

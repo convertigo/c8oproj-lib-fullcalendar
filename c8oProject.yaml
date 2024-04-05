@@ -1,6 +1,9 @@
 ↑convertigo: 8.3.0.m006
 ↓lib_FullCalendar [core.Project]: 
-  comment: Convertigo NGX builder Project
+  comment: |
+    '# This is the FullCalendar Library for Convertigo Low Code studio
+    Use this library to provider Calendar with multiple views to your applications .
+    '
   corsOrigin: =Origin
   ↓void [connectors.SqlConnector]: 🗏 connectors/void.yaml
   ↓Project_reference [references.ProjectSchemaReference]: 

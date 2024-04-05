@@ -60,6 +60,64 @@ title: First page
   beanData: '{"ionBean":"Content"}'
   comment: Page content
   tagName: ion-content
+  ↓tag [ngx.components.UIUseShared-1712319895999]: 
+    sharedcomponent: lib_FullCalendar.Application.NgxApp.FullCalendar
+    ↓locale [ngx.components.UIUseVariable-1712328200670]: 
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:'fr'
+    ↓initialView [ngx.components.UIUseVariable-1712330342593]: 
+      comment: |
+        InitialDisplay such as 'dayGridMonth', 'timeGridWeek', 'listWeek', 'dayGridWeek', 'multiMonthYear'
+        
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:'dayGridWeek'
+    ↓headerToolbar [ngx.components.UIUseVariable-1712332019857]: 
+      comment: |
+        'A JSON Object representing the Header toolbar 
+        ```
+        {
+            left: ''prev,next today'',
+            center: ''title'',
+            right: ''dayGridMonth,timeGridWeek,timeGridDay''
+        }```
+        '
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: |
+              'script:{
+              	left: ''prev,next today'',
+              	center: ''title'',
+              	right: ''dayGridMonth, timeGridWeek, listWeek, dayGridWeek, multiMonthYear''
+              }'
+    ↓buttonText [ngx.components.UIUseVariable-1712332019859]: 
+      comment: |
+        'A JSON Object representing the Button labels 
+        ```
+        {
+          today:    "Today",
+          month:    ''month'',
+          week:     ''week'',
+          day:      ''day'',
+          list:     ''list''
+        }
+        ```
+        '
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: |
+              'script:{
+              			  today:    ''Aujour d hui'',
+              			  month:    ''mois'',
+              			  week:     ''semaine'',
+              			  day:      ''annee'',
+              			  list:     ''liste''
+              }'
 ↓Footer [ngx.components.UIDynamicElement-1491634242460]: 
   beanData: '{"ionBean":"Footer"}'
   comment: Page footer

@@ -1,0 +1,195 @@
+scriptContent: 
+  - xmlizable: 
+    - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+    - com.twinsoft.convertigo.beans.common.FormatedContent: 
+      →: |
+        '/*Begin_c8o_CompImport*/
+        import dayGridPlugin from ''@fullcalendar/daygrid'';
+        import listPlugin from ''@fullcalendar/list'';
+        import monthPlugin from ''@fullcalendar/multimonth'';
+        import timeGridPlugin from ''@fullcalendar/timegrid''
+        /*End_c8o_CompImport*/
+        /*Begin_c8o_CompDeclaration*/
+        	public calendarOptions: CalendarOptions 
+        	/*End_c8o_CompDeclaration*/
+        /*Begin_c8o_CompConstructor*/
+        		/*End_c8o_CompConstructor*/
+        /*Begin_c8o_CompInitialization*/
+        		this.calendarOptions = {
+        			headerToolbar: this.headerToolbar,
+        			selectable: true,
+        			selectMirror : true,
+        			buttonText: this.buttonText,
+        		    initialView: this.initialView,
+        		    plugins: [dayGridPlugin, listPlugin, monthPlugin, timeGridPlugin],
+        		    locale: this.locale
+        		}
+        		/*End_c8o_CompInitialization*/
+        /*Begin_c8o_CompFinalization*/
+        		/*End_c8o_CompFinalization*/
+        /*Begin_c8o_CompChanges*/
+        		Object.keys(changes).forEach( (key) => {
+        			switch(key) {
+        				case "locale": {
+        					if(!changes[key].firstChange) {
+        						this.calendarOptions["locale"] = changes[key].currentValue;
+        					}
+        				}
+        			}
+        		})
+        		/*End_c8o_CompChanges*/
+        /*Begin_c8o_CompDoCheck*/
+        		/*End_c8o_CompDoCheck*/
+        /*Begin_c8o_CompAfterContentInit*/
+        		/*End_c8o_CompAfterContentInit*/
+        /*Begin_c8o_CompAfterContentChecked*/
+        		/*End_c8o_CompAfterContentChecked*/
+        /*Begin_c8o_CompAfterViewInit*/
+        		/*End_c8o_CompAfterViewInit*/
+        /*Begin_c8o_CompAfterViewChecked*/
+        		/*End_c8o_CompAfterViewChecked*/
+        /*Begin_c8o_CompFunction*/
+        	/*End_c8o_CompFunction*/
+        '
+↓SharedComponent_Event [ngx.components.UISharedComponentEvent-1712319930139]: 
+  ↓InstallFullCalendar [ngx.components.UICustomAction-1712319939304]: 
+    module_ng_imports: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: FullCalendarModule
+    module_ts_imports: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: FullCalendarModule
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/angular'
+    package_dependencies: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/core'
+              - java.lang.String: 
+                - ↑value: 6.1.11
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/interaction'
+              - java.lang.String: 
+                - ↑value: 6.1.11
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/daygrid'
+              - java.lang.String: 
+                - ↑value: 6.1.11
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/timegrid'
+              - java.lang.String: 
+                - ↑value: 6.1.11
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/list'
+              - java.lang.String: 
+                - ↑value: 6.1.11
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/multimonth'
+              - java.lang.String: 
+                - ↑value: 6.1.11
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/angular'
+              - java.lang.String: 
+                - ↑value: 6.1.10
+    page_ts_imports: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: CalendarOptions
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/core'
+↓tag [ngx.components.UIElement-1712321874964]: 
+  tagName: full-calendar
+  ↓_options_ [ngx.components.UIAttribute-1712322009859]: 
+    attrName: '[options]'
+    attrValue: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+        - MobileSmartSourceType: script:this.calendarOptions
+↓locale [ngx.components.UICompVariable-1712324627888]: 
+  comment: Locale such as 'en', 'fr', 'es' ..
+  value: '''en'''
+↓initialView [ngx.components.UICompVariable-1712328878434]: 
+  comment: |
+    InitialDisplay such as 'dayGridMonth', 'timeGridWeek', 'listWeek', 'dayGridWeek', 'multiMonthYear'
+    
+  value: '''dayGridMonth'''
+↓headerToolbar [ngx.components.UICompVariable-1712331031263]: 
+  comment: |
+    'A JSON Object representing the Header toolbar 
+    ```
+    {
+        left: ''prev,next today'',
+        center: ''title'',
+        right: ''dayGridMonth,timeGridWeek,timeGridDay''
+    }```
+    '
+  value: |
+    '{
+    			    left: ''prev,next today'',
+    			    center: ''title'',
+    			    right: ''dayGridMonth,timeGridWeek,timeGridDay''
+    			}'
+↓buttonText [ngx.components.UICompVariable-1712331054546]: 
+  comment: |
+    'A JSON Object representing the Button labels 
+    ```
+    {
+      today:    "Today",
+      month:    ''month'',
+      week:     ''week'',
+      day:      ''day'',
+      list:     ''list''
+    }
+    ```
+    '
+  value: |
+    '{
+    			  today:    ''today'',
+    			  month:    ''month'',
+    			  week:     ''week'',
+    			  day:      ''day'',
+    			  list:     ''list''
+    			}'
+↓selectable [ngx.components.UICompVariable-1712332668650]: 
+  comment: Locale such as 'en', 'fr', 'es' ..
+  value: true

@@ -6,6 +6,7 @@
 # This is the FullCalendar Library for Convertigo Low Code studio
 Use this library to provider Calendar with multiple views to your applications. the library is based on the FullCalendar component https://fullcalendar.io/
 
+![Convertigo FullCalendar](./docImg/FullCalendar.png)
 
 
 

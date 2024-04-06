@@ -60,83 +60,132 @@ title: First page
   beanData: '{"ionBean":"Content"}'
   comment: Page content
   tagName: ion-content
-  ↓tag [ngx.components.UIUseShared-1712319895999]: 
-    sharedcomponent: lib_FullCalendar.Application.NgxApp.FullCalendar
-    ↓locale [ngx.components.UIUseVariable-1712328200670]: 
-      varValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: script:'fr'
-    ↓initialView [ngx.components.UIUseVariable-1712330342593]: 
-      comment: |
-        InitialDisplay such as 'dayGridMonth', 'timeGridWeek', 'listWeek', 'dayGridWeek', 'multiMonthYear'
-        
-      varValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: script:'dayGridWeek'
-    ↓headerToolbar [ngx.components.UIUseVariable-1712332019857]: 
-      comment: |
-        'A JSON Object representing the Header toolbar 
-        ```
-        {
-            left: ''prev,next today'',
-            center: ''title'',
-            right: ''dayGridMonth,timeGridWeek,timeGridDay''
-        }```
-        '
-      varValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: |
-              'script:{
-              	left: ''prev,next today'',
-              	center: ''title'',
-              	right: ''dayGridMonth, timeGridWeek, listWeek, dayGridWeek, multiMonthYear''
-              }'
-    ↓buttonText [ngx.components.UIUseVariable-1712332019859]: 
-      comment: |
-        'A JSON Object representing the Button labels 
-        ```
-        {
-          today:    "Today",
-          month:    ''month'',
-          week:     ''week'',
-          day:      ''day'',
-          list:     ''list''
-        }
-        ```
-        '
-      varValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: |
-              'script:{
-              			  today:    ''Aujour d hui'',
-              			  month:    ''mois'',
-              			  week:     ''semaine'',
-              			  day:      ''annee'',
-              			  list:     ''liste''
-              }'
-    ↓selectable [ngx.components.UIUseVariable-1712335132654]: 
-      comment: Enables the user to select events can be true or false
-      varValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: script:true
-    ↓calEvents [ngx.components.UIUseVariable-1712335132656]: 
-      binding: twoWayBinding
-      comment: Locale such as 'en', 'fr', 'es' ..
-      varValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: source:{"filter":"Local","project":"lib_FullCalendar","input":"","model":{"data":[{"localObject":"local"}],"path":"?.events","prefix":"","suffix":"","custom":"local.events","useCustom":true}}
-    ↓editable [ngx.components.UIUseVariable-1712388566839]: 
-      comment: Enables the user to edit events can be true or false
-      varValue: 
-        - xmlizable: 
-          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-          - MobileSmartSourceType: script:true
+  ↓Grid [ngx.components.UIDynamicElement-1712389379368]: 
+    beanData: '{"ionBean":"Grid"}'
+    tagName: ion-grid
+    ↓GridRow [ngx.components.UIDynamicElement-1712389379355]: 
+      beanData: '{"ionBean":"GridRow"}'
+      tagName: ion-row
+      ↓GridCol [ngx.components.UIDynamicElement-1712389379357]: 
+        beanData: '{"ionBean":"GridCol","Size":"plain:8"}'
+        tagName: ion-col
+        ↓tag [ngx.components.UIUseShared-1712319895999]: 
+          sharedcomponent: lib_FullCalendar.Application.NgxApp.FullCalendar
+          ↓locale [ngx.components.UIUseVariable-1712328200670]: 
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: script:'fr'
+          ↓initialView [ngx.components.UIUseVariable-1712330342593]: 
+            comment: |
+              InitialDisplay such as 'dayGridMonth', 'timeGridWeek', 'listWeek', 'dayGridWeek', 'multiMonthYear'
+              
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: script:'dayGridWeek'
+          ↓headerToolbar [ngx.components.UIUseVariable-1712332019857]: 
+            comment: |
+              'A JSON Object representing the Header toolbar 
+              ```
+              {
+                  left: ''prev,next today'',
+                  center: ''title'',
+                  right: ''dayGridMonth,timeGridWeek,timeGridDay''
+              }```
+              '
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: |
+                    'script:{
+                    	left: ''prev,next today'',
+                    	center: ''title'',
+                    	right: ''dayGridMonth, timeGridWeek, listWeek''
+                    }'
+          ↓buttonText [ngx.components.UIUseVariable-1712332019859]: 
+            comment: |
+              'A JSON Object representing the Button labels 
+              ```
+              {
+                today:    "Today",
+                month:    ''month'',
+                week:     ''week'',
+                day:      ''day'',
+                list:     ''list''
+              }
+              ```
+              '
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: |
+                    'script:{
+                    			  today:    ''Aujour d hui'',
+                    			  month:    ''mois'',
+                    			  week:     ''semaine'',
+                    			  day:      ''annee'',
+                    			  list:     ''liste''
+                    }'
+          ↓selectable [ngx.components.UIUseVariable-1712335132654]: 
+            comment: Enables the user to select events can be true or false
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: script:true
+          ↓calEvents [ngx.components.UIUseVariable-1712335132656]: 
+            binding: twoWayBinding
+            comment: Locale such as 'en', 'fr', 'es' ..
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: source:{"filter":"Local","project":"lib_FullCalendar","input":"","model":{"data":[{"localObject":"local"}],"path":"?.events","prefix":"","suffix":"","custom":"local.events","useCustom":true}}
+          ↓editable [ngx.components.UIUseVariable-1712388566839]: 
+            comment: Enables the user to edit events can be true or false
+            varValue: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: script:true
+      ↓GridCol1 [ngx.components.UIDynamicElement-1712389379363]: 
+        beanData: '{"ionBean":"GridCol"}'
+        tagName: ion-col
+        ↓ListContainer [ngx.components.UIDynamicElement-1712389475287]: 
+          beanData: '{"ionBean":"List"}'
+          tagName: ion-list
+          ↓tag [ngx.components.UIControlDirective-1712389475270]: 
+            directiveIndexName: idx
+            directiveItemName: item
+            directiveSource: 
+              - xmlizable: 
+                - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                - MobileSmartSourceType: source:{"filter":"Local","project":"lib_FullCalendar","input":"","model":{"data":[{"localObject":"local"}],"path":"?.events","prefix":"","suffix":"","custom":"","useCustom":false}}
+            ↓ListItem [ngx.components.UIDynamicElement-1712389475282]: 
+              beanData: '{"ionBean":"ListItem"}'
+              tagName: ion-item
+              ↓Label [ngx.components.UIDynamicElement-1712389475284]: 
+                beanData: '{"ionBean":"Label"}'
+                tagName: ion-label
+                ↓some_text [ngx.components.UIText-1712389475286]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:item.id
+              ↓Label1 [ngx.components.UIDynamicElement-1712389630246]: 
+                beanData: '{"ionBean":"Label"}'
+                tagName: ion-label
+                ↓some_text [ngx.components.UIText-1712389630249]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:item.title
+              ↓Label2 [ngx.components.UIDynamicElement-1712389657770]: 
+                beanData: '{"ionBean":"Label"}'
+                tagName: ion-label
+                ↓some_text [ngx.components.UIText-1712389657773]: 
+                  textValue: 
+                    - xmlizable: 
+                      - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+                      - MobileSmartSourceType: script:item.start
 ↓Footer [ngx.components.UIDynamicElement-1491634242460]: 
   beanData: '{"ionBean":"Footer"}'
   comment: Page footer

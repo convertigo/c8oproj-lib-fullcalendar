@@ -74,7 +74,19 @@ FullCalendar providing Calendar, planning and schedules
 </td>
 </tr>
 <tr>
-<td>calEvents</td><td>Locale such as 'en', 'fr', 'es' ..</td>
+<td>calEvents</td><td>The initial events to be displayed in the calendar. An array of event objects of this structure :
+<pre>
+{
+  id: 'a',
+  title: 'my event',
+  start: '2018-09-01'
+}
+</pre>
+See Event documentation for details : https://fullcalendar.io/docs/event-object
+
+Note that when a user resizes or modifies an event, this array will be automatically updated if you use two way binding.
+
+</td>
 </tr>
 <tr>
 <td>editable</td><td>Enables the user to edit events can be true or false</td>

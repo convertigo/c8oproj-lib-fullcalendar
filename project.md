@@ -79,7 +79,19 @@ A JSON Object representing the Button labels
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;calEvents
 </td>
 <td>
-Locale such as 'en', 'fr', 'es' ..
+The initial events to be displayed in the calendar. An array of event objects of this structure :
+<pre>
+{
+  id: 'a',
+  title: 'my event',
+  start: '2018-09-01'
+}
+</pre>
+See Event documentation for details : https://fullcalendar.io/docs/event-object
+
+Note that when a user resizes or modifies an event, this array will be automatically updated if you use two way binding.
+
+
 </td>
 </tr>
 <tr>

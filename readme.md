@@ -51,6 +51,8 @@ Describes the mobile application global properties
 
 #### FullCalendar
 
+FullCalendar providing Calendar, planning and schedules
+
 **variables**
 
 <table>
@@ -59,7 +61,7 @@ Describes the mobile application global properties
 </tr>
 <tr>
 <td>buttonText</td><td>A JSON Object representing the Button labels 
-```
+<pre>
 {
   today:    "Today",
   month:    'month',
@@ -67,7 +69,8 @@ Describes the mobile application global properties
   day:      'day',
   list:     'list'
 }
-```
+</pre>
+
 </td>
 </tr>
 <tr>
@@ -75,12 +78,14 @@ Describes the mobile application global properties
 </tr>
 <tr>
 <td>headerToolbar</td><td>A JSON Object representing the Header toolbar 
-```
+<pre>
 {
     left: 'prev,next today',
     center: 'title',
     right: 'dayGridMonth,timeGridWeek,timeGridDay'
-}```
+}
+</pre>
+
 </td>
 </tr>
 <tr>

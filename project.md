@@ -42,7 +42,7 @@ My First Page as root page
 
 ### ![](https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uisharedcomponent_16x16.png?raw=true "UISharedRegularComponent") FullCalendar
 
-
+FullCalendar providing Calendar, planning and schedules
 
 <span style="color:DarkGoldenRod">Variables</span>
 
@@ -61,7 +61,7 @@ comment
 </td>
 <td>
 A JSON Object representing the Button labels 
-```
+<pre>
 {
   today:    "Today",
   month:    'month',
@@ -69,7 +69,8 @@ A JSON Object representing the Button labels
   day:      'day',
   list:     'list'
 }
-```
+</pre>
+
 
 </td>
 </tr>
@@ -87,12 +88,14 @@ Locale such as 'en', 'fr', 'es' ..
 </td>
 <td>
 A JSON Object representing the Header toolbar 
-```
+<pre>
 {
     left: 'prev,next today',
     center: 'title',
     right: 'dayGridMonth,timeGridWeek,timeGridDay'
-}```
+}
+</pre>
+
 
 </td>
 </tr>

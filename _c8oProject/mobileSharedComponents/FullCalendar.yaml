@@ -1,3 +1,4 @@
+comment: FullCalendar providing Calendar, planning and schedules
 scriptContent: 
   - xmlizable: 
     - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -162,12 +163,14 @@ scriptContent:
 ↓headerToolbar [ngx.components.UICompVariable-1712331031263]: 
   comment: |
     'A JSON Object representing the Header toolbar 
-    ```
+    <pre>
     {
         left: ''prev,next today'',
         center: ''title'',
         right: ''dayGridMonth,timeGridWeek,timeGridDay''
-    }```
+    }
+    </pre>
+    
     '
   value: |
     '{
@@ -178,7 +181,7 @@ scriptContent:
 ↓buttonText [ngx.components.UICompVariable-1712331054546]: 
   comment: |
     'A JSON Object representing the Button labels 
-    ```
+    <pre>
     {
       today:    "Today",
       month:    ''month'',
@@ -186,7 +189,8 @@ scriptContent:
       day:      ''day'',
       list:     ''list''
     }
-    ```
+    </pre>
+    
     '
   value: |
     '{

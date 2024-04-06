@@ -103,5 +103,17 @@ FullCalendar providing Calendar, planning and schedules
 </tr>
 </table>
 
+**events**
+
+<table>
+<tr>
+<th>name</th><th>comment</th>
+</tr>
+<tr>
+<td>EventChanged</td><td>Triggered when an event is modified by the user, the modified event object will be in the <pre>out</out>
+</td>
+</tr>
+</table>
+
 
 

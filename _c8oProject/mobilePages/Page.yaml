@@ -146,6 +146,20 @@ title: First page
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
                 - MobileSmartSourceType: script:true
+          ↓attr [ngx.components.UIControlEvent-1712392821722]: 
+            attrName: (EventChanged)
+            comment: |
+              Triggered when an event is modified by the user, the modified event will be in the <pre>out</out>
+              
+            eventName: EventChanged
+            ↓Toast [ngx.components.UIDynamicAction-1712392873891]: 
+              beanData: |
+                '{
+                 "ionBean": "ToastAction",
+                 "message": "source:{\"filter\":\"Action\",\"project\":\"lib_FullCalendar\",\"input\":\"\",\"model\":{\"data\":[{\"priority\":1712392821722,\"rootEvent\":true,\"pageLocals\":false}],\"path\":\"?.out\",\"prefix\":\"JSON.stringify(\",\"suffix\":\")\",\"custom\":\"\",\"useCustom\":false}}",
+                 "position": "plain:middle"
+                }'
+              tagName: Toast
       ↓GridCol1 [ngx.components.UIDynamicElement-1712389379363]: 
         beanData: '{"ionBean":"GridCol"}'
         tagName: ion-col

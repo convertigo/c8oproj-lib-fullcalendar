@@ -134,5 +134,28 @@ Enables the user to select events can be true or false
 </tr>
 </table>
 
+
+<span style="color:DarkGoldenRod">Events</span>
+
+<table>
+<tr>
+<th>
+name
+</th>
+<th>
+comment
+</th>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompevent_16x16.png?raw=true "  alt="UICompEvent" >&nbsp;EventChanged
+</td>
+<td>
+Triggered when an event is modified by the user, the modified event object will be in the <pre>out</out>
+
+</td>
+</tr>
+</table>
+
 </p></blockquote></details>
 </p></blockquote></details>

@@ -131,6 +131,12 @@ title: First page
         - xmlizable: 
           - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
           - MobileSmartSourceType: source:{"filter":"Local","project":"lib_FullCalendar","input":"","model":{"data":[{"localObject":"local"}],"path":"?.events","prefix":"","suffix":"","custom":"local.events","useCustom":true}}
+    ↓editable [ngx.components.UIUseVariable-1712388566839]: 
+      comment: Enables the user to edit events can be true or false
+      varValue: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
+          - MobileSmartSourceType: script:true
 ↓Footer [ngx.components.UIDynamicElement-1491634242460]: 
   beanData: '{"ionBean":"Footer"}'
   comment: Page footer

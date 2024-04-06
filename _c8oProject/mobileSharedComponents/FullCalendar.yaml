@@ -8,7 +8,8 @@ scriptContent:
         import dayGridPlugin from ''@fullcalendar/daygrid'';
         import listPlugin from ''@fullcalendar/list'';
         import monthPlugin from ''@fullcalendar/multimonth'';
-        import timeGridPlugin from ''@fullcalendar/timegrid''
+        import timeGridPlugin from ''@fullcalendar/timegrid'';
+        import interactionPlugin from ''@fullcalendar/interaction'';
         /*End_c8o_CompImport*/
         /*Begin_c8o_CompDeclaration*/
         	public calendarOptions: CalendarOptions 
@@ -19,12 +20,13 @@ scriptContent:
         		this.calendarOptions = {
         			events: this.calEvents,
         			headerToolbar: this.headerToolbar,
-        			selectable: true,
+        			selectable: this.selectable,
         			selectMirror : true,
         			buttonText: this.buttonText,
         		    initialView: this.initialView,
-        		    plugins: [dayGridPlugin, listPlugin, monthPlugin, timeGridPlugin],
-        		    locale: this.locale
+        		    plugins: [dayGridPlugin, listPlugin, monthPlugin, timeGridPlugin, interactionPlugin],
+        		    locale: this.locale,
+        		    editable: this.editable
         		}
         		/*End_c8o_CompInitialization*/
         /*Begin_c8o_CompFinalization*/
@@ -211,3 +213,6 @@ scriptContent:
           title: ''my event'',
           start: ''2018-09-01''
         }]'
+↓editable [ngx.components.UICompVariable-1712388503624]: 
+  comment: Enables the user to edit events can be true or false
+  value: true

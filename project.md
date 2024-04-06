@@ -84,6 +84,14 @@ Locale such as 'en', 'fr', 'es' ..
 </tr>
 <tr>
 <td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;editable
+</td>
+<td>
+Enables the user to edit events can be true or false
+</td>
+</tr>
+<tr>
+<td>
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;headerToolbar
 </td>
 <td>

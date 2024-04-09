@@ -27,6 +27,15 @@ scriptContent:
         		    plugins: [dayGridPlugin, listPlugin, monthPlugin, timeGridPlugin, interactionPlugin],
         		    locale: this.locale,
         		    editable: this.editable,
+        		    height: this.height,
+        		    initialDate: this.initialDate,
+        			dateClick: (info) => {
+        				this.DateClicked.emit(info.date)	
+        			},
+        		    eventClassNames: function(arg) { 
+        		        return [''occupied''] 
+        	      	},
+        		    multiMonthTitleFormat : {month: ''long'', year: ''numeric''},
         			eventChange: (info) => {
         				this.updateEvent(info);
         			}
@@ -237,11 +246,41 @@ scriptContent:
           title: ''my event'',
           start: ''2018-09-01''
         }]'
-↓editable [ngx.components.UICompVariable-1712388503624]: 
-  comment: Enables the user to edit events can be true or false
-  value: true
+↓initialDate [ngx.components.UICompVariable-1712388503624]: 
+  comment: |
+    The initial date displayed when the calendar first loads.
+    
+    Date
+    
+    When not specified, this value defaults to the current date.
+    
+    This value can be anything that can parse into a Date, including an ISO8601 date string like "2014-02-01".
+  value: 
 ↓EventChanged [ngx.components.UICompEvent-1712392652901]: 
   attrName: EventChanged
   comment: |
     Triggered when an event is modified by the user, the modified event object will be in the <pre>out</out>
     
+↓height [ngx.components.UICompVariable-1712582692128]: 
+  comment: |
+    Sets the height of the entire calendar, including header and footer.
+    
+    Integer, "auto", a CSS value like "100%"
+    
+    By default, this option is unset and the calendar’s height is calculated by aspectRatio.
+    
+    If an integer is specified, the height of the calendar will be guaranteed to be that exact pixel height. If the contents will not fit within the height, scrollbars will appear.
+    
+    If "auto" is specified, the view’s contents will assume a natural height and no scrollbars will be used.
+    
+    If "100%" is specified, the height of the calendar will match the height of its parent container element. See an example. Any other valid CSS value is accepted as well.
+    
+  value: '''100%'''
+↓DateClicked [ngx.components.UICompEvent-1712591326517]: 
+  attrName: DateClicked
+  comment: |
+    Triggered when an event is modified by the user, the modified event object will be in the <pre>out</out>
+    
+↓editable [ngx.components.UICompVariable-1712680228036]: 
+  comment: Enables the user to edit events can be true or false
+  value: true

@@ -105,6 +105,29 @@ Note that when a user resizes or modifies an event, this array will be automatic
 </td>
 </tr>
 <tr>
+<td>height</td><td>Sets the height of the entire calendar, including header and footer.
+
+Integer, "auto", a CSS value like "100%"
+
+By default, this option is unset and the calendar’s height is calculated by aspectRatio.
+
+If an integer is specified, the height of the calendar will be guaranteed to be that exact pixel height. If the contents will not fit within the height, scrollbars will appear.
+
+If "auto" is specified, the view’s contents will assume a natural height and no scrollbars will be used.
+
+If "100%" is specified, the height of the calendar will match the height of its parent container element. See an example. Any other valid CSS value is accepted as well.
+</td>
+</tr>
+<tr>
+<td>initialDate</td><td>The initial date displayed when the calendar first loads.
+
+Date
+
+When not specified, this value defaults to the current date.
+
+This value can be anything that can parse into a Date, including an ISO8601 date string like "2014-02-01".</td>
+</tr>
+<tr>
 <td>initialView</td><td>InitialDisplay such as 'dayGridMonth', 'timeGridWeek', 'listWeek', 'dayGridWeek', 'multiMonthYear'
 </td>
 </tr>
@@ -121,6 +144,10 @@ Note that when a user resizes or modifies an event, this array will be automatic
 <table>
 <tr>
 <th>name</th><th>comment</th>
+</tr>
+<tr>
+<td>DateClicked</td><td>Triggered when an event is modified by the user, the modified event object will be in the <pre>out</out>
+</td>
 </tr>
 <tr>
 <td>EventChanged</td><td>Triggered when an event is modified by the user, the modified event object will be in the <pre>out</out>

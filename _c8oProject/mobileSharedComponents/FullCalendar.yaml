@@ -59,7 +59,7 @@ scriptContent:
         				case "initialDate": {
         					if(!changes[key].firstChange) {
         						this.calendarOptions["initialDate"] = changes[key].currentValue;
-        						this.calendar.getApi().render();
+        						this.calendar.getApi().gotoDate(changes[key].currentValue);
         					}
         				}
         			}

@@ -56,6 +56,12 @@ scriptContent:
         						this.calendarOptions["events"] = changes[key].currentValue;
         					}
         				}
+        				case "initialDate": {
+        					if(!changes[key].firstChange) {
+        						this.calendarOptions["initialDate"] = changes[key].currentValue;
+        						this.calendar.getApi().render();
+        					}
+        				}
         			}
         		})
         		/*End_c8o_CompChanges*/
@@ -167,6 +173,7 @@ scriptContent:
               - java.lang.String: 
                 - ↑value: '@fullcalendar/core'
 ↓tag [ngx.components.UIElement-1712321874964]: 
+  identifier: calendar
   tagName: full-calendar
   ↓_options_ [ngx.components.UIAttribute-1712322009859]: 
     attrName: '[options]'

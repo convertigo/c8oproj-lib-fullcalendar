@@ -135,6 +135,15 @@ This value can be anything that can parse into a Date, including an ISO8601 date
 <td>locale</td><td>Locale such as 'en', 'fr', 'es' ..</td>
 </tr>
 <tr>
+<td>multiMonthMaxColumns</td><td>The maximum columns of months that Multi-Month Grid will attempt to render.
+
+Number, default: 3
+
+By default, Multi-Month Grid will attempt to display 3 columns of mini-months. If there is insufficient space, requiring each month to be smaller than multiMonthMinWidth, fewer columns will be displayed.
+
+To display one single column of months, set multiMonthMaxColumns to 1.</td>
+</tr>
+<tr>
 <td>selectable</td><td>Enables the user to select events can be true or false</td>
 </tr>
 </table>

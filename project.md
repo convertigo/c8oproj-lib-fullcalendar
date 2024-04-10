@@ -172,6 +172,20 @@ Locale such as 'en', 'fr', 'es' ..
 </tr>
 <tr>
 <td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;multiMonthMaxColumns
+</td>
+<td>
+The maximum columns of months that Multi-Month Grid will attempt to render.
+
+Number, default: 3
+
+By default, Multi-Month Grid will attempt to display 3 columns of mini-months. If there is insufficient space, requiring each month to be smaller than multiMonthMinWidth, fewer columns will be displayed.
+
+To display one single column of months, set multiMonthMaxColumns to 1.
+</td>
+</tr>
+<tr>
+<td>
 <img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;selectable
 </td>
 <td>

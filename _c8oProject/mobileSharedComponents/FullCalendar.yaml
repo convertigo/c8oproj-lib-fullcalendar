@@ -1,18 +1,31 @@
-comment: FullCalendar providing Calendar, planning and schedules
+comment: |
+  'FullCalendar 7.0.1 Standard wrapper for Convertigo NGX.
+  
+  Renders an interactive calendar through @fullcalendar/angular with the Classic theme and the bundled DayGrid, TimeGrid, List, MultiMonth and Interaction plugins. Premium Scheduler/resource views are not included.
+  
+  All public inputs are applied at initialization. locale, initialView, headerToolbar, buttonText, selectable, calEvents, editable, height, initialDate and multiMonthMaxColumns are also handled reactively after initialization.
+  
+  Outputs:
+  - DateClicked: emits the native JavaScript Date for a clicked date/time cell.
+  - EventChanged: emits a plain event object after an event change.
+  - calEventsChange: supports two-way binding when an editable event is changed.
+  
+  FullCalendar documentation: https://fullcalendar.io/docs'
 scriptContent: 
   - xmlizable: 
     - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
     - com.twinsoft.convertigo.beans.common.FormatedContent: 
       →: |
         '/*Begin_c8o_CompImport*/
-        import dayGridPlugin from ''@fullcalendar/daygrid'';
-        import listPlugin from ''@fullcalendar/list'';
-        import monthPlugin from ''@fullcalendar/multimonth'';
-        import timeGridPlugin from ''@fullcalendar/timegrid'';
-        import interactionPlugin from ''@fullcalendar/interaction'';
+        import dayGridPlugin from ''@fullcalendar/angular/daygrid'';
+        import listPlugin from ''@fullcalendar/angular/list'';
+        import monthPlugin from ''@fullcalendar/angular/multimonth'';
+        import timeGridPlugin from ''@fullcalendar/angular/timegrid'';
+        import interactionPlugin from ''@fullcalendar/angular/interaction'';
+        import themePlugin from ''@fullcalendar/angular/themes/classic'';
         /*End_c8o_CompImport*/
         /*Begin_c8o_CompDeclaration*/
-        	public calendarOptions: CalendarOptions 
+        	public calendarOptions: CalendarOptions;
         	/*End_c8o_CompDeclaration*/
         /*Begin_c8o_CompConstructor*/
         		/*End_c8o_CompConstructor*/
@@ -21,50 +34,69 @@ scriptContent:
         			events: this.calEvents,
         			headerToolbar: this.headerToolbar,
         			selectable: this.selectable,
-        			selectMirror : true,
-        			buttonText: this.buttonText,
-        		    initialView: this.initialView,
-        		    plugins: [dayGridPlugin, listPlugin, monthPlugin, timeGridPlugin, interactionPlugin],
-        		    locale: this.locale,
-        		    editable: this.editable,
-        		    height: this.height,
-        		    initialDate: this.initialDate,
-        		    multiMonthMaxColumns: this.multiMonthMaxColumns,
+        			selectMirror: true,
+        			buttons: this.toV7Buttons(this.buttonText),
+        			initialView: this.initialView,
+        			plugins: [themePlugin, dayGridPlugin, listPlugin, monthPlugin, timeGridPlugin, interactionPlugin],
+        			locale: this.locale,
+        			editable: this.editable,
+        			height: this.height,
+        			initialDate: this.initialDate,
+        			multiMonthMaxColumns: this.multiMonthMaxColumns,
         			dateClick: (info) => {
-        				this.DateClicked.emit(info.date)	
+        				this.DateClicked.emit(info.date);
         			},
-        		    eventClassNames: function(arg) { 
-        		        return [''occupied''] 
-        	      	},
-        		    multiMonthTitleFormat : {month: ''long'', year: ''numeric''},
+        			eventClass: ''occupied'',
+        			singleMonthTitleFormat: {month: ''long'', year: ''numeric''},
         			eventChange: (info) => {
         				this.updateEvent(info);
         			}
-        		}
+        		};
         		/*End_c8o_CompInitialization*/
         /*Begin_c8o_CompFinalization*/
         		/*End_c8o_CompFinalization*/
         /*Begin_c8o_CompChanges*/
-        		Object.keys(changes).forEach( (key) => {
-        			switch(key) {
-        				case "locale": {
-        					if(!changes[key].firstChange) {
-        						this.calendarOptions["locale"] = changes[key].currentValue;
-        					}
-        				}
-        				case "calEvents": {
-        					if(!changes[key].firstChange) {
-        						this.calendarOptions["events"] = changes[key].currentValue;
-        					}
-        				}
-        				case "initialDate": {
-        					if(!changes[key].firstChange) {
-        						this.calendarOptions["initialDate"] = changes[key].currentValue;
-        						this.calendar.getApi().gotoDate(changes[key].currentValue);
-        					}
-        				}
+        		Object.keys(changes).forEach((key) => {
+        			const change = changes[key];
+        			if (change.firstChange) {
+        				return;
         			}
-        		})
+        
+        			switch (key) {
+        				case "calEvents":
+        					this.setCalendarOption("events", Array.isArray(change.currentValue) ? change.currentValue : []);
+        					break;
+        				case "initialDate":
+        					this.calendarOptions = {...this.calendarOptions, initialDate: change.currentValue};
+        					if (change.currentValue !== undefined && change.currentValue !== null && change.currentValue !== "") {
+        						const calendarApi = this.getCalendarApi();
+        						if (calendarApi) {
+        							calendarApi.gotoDate(change.currentValue);
+        						}
+        					}
+        					break;
+        				case "initialView":
+        					this.calendarOptions = {...this.calendarOptions, initialView: change.currentValue};
+        					if (change.currentValue) {
+        						const calendarApi = this.getCalendarApi();
+        						if (calendarApi) {
+        							calendarApi.changeView(change.currentValue);
+        						}
+        					}
+        					break;
+        				case "locale":
+        				case "headerToolbar":
+        				case "selectable":
+        				case "editable":
+        				case "height":
+        				case "multiMonthMaxColumns":
+        					this.setCalendarOption(key as keyof CalendarOptions, change.currentValue);
+        					break;
+        				case "buttonText":
+        					this.setCalendarOption("buttons", this.toV7Buttons(change.currentValue));
+        					break;
+        			}
+        		});
         		/*End_c8o_CompChanges*/
         /*Begin_c8o_CompDoCheck*/
         		/*End_c8o_CompDoCheck*/
@@ -77,18 +109,133 @@ scriptContent:
         /*Begin_c8o_CompAfterViewChecked*/
         		/*End_c8o_CompAfterViewChecked*/
         /*Begin_c8o_CompFunction*/
-        	public updateEvent(info) {
-        		let id = info.event.id
-        		// update the event in the calEvents
-        		let index = this.calEvents.findIndex((event) => event.id == id);
-        		this.calEvents[index] = info.event.toPlainObject();
-        		this.calEventsChange.emit(this.calEvents);
-        		this.EventChanged.emit(info.event.toPlainObject());	
+        	private getCalendarApi() {
+        		return this.calendar && this.calendar.getApi ? this.calendar.getApi() : null;
+        	}
+        
+        		private setCalendarOption(optionName: keyof CalendarOptions, value: any): void {
+        			this.calendarOptions = {...this.calendarOptions, [optionName]: value};
+        			const calendarApi = this.getCalendarApi();
+        			if (calendarApi) {
+        				calendarApi.setOption(optionName, value);
+        			}
+        		}
+        
+        	private toV7Buttons(buttonText: any): any {
+        		const buttons: any = {};
+        		const aliases: any = {
+        			month: ["dayGridMonth"],
+        			week: ["dayGridWeek", "timeGridWeek"],
+        			day: ["timeGridDay"],
+        			list: ["listDay", "listWeek", "listMonth", "listYear"],
+        			year: ["multiMonthYear"]
+        		};
+        		if (buttonText && typeof buttonText === "object") {
+        			Object.keys(buttonText).forEach((name) => {
+        				const button = {text: String(buttonText[name])};
+        				buttons[name] = button;
+        				(aliases[name] || []).forEach((viewName: string) => {
+        					buttons[viewName] = button;
+        				});
+        			});
+        		}
+        		return buttons;
+        	}
+        
+        	public updateEvent(info: any): void {
+        		if (!info || !info.event) {
+        			return;
+        		}
+        
+        		const updatedEvent = info.event.toPlainObject();
+        		const id = updatedEvent.id;
+        		if (id === undefined || id === null || id === "") {
+        			this.EventChanged.emit(updatedEvent);
+        			return;
+        		}
+        
+        		const currentEvents = Array.isArray(this.calEvents) ? this.calEvents : [];
+        		const index = currentEvents.findIndex((event) =>
+        			event && event.id !== undefined && String(event.id) === String(id)
+        		);
+        		const nextEvents = index >= 0
+        			? currentEvents.map((event, currentIndex) => currentIndex === index ? updatedEvent : event)
+        			: [...currentEvents, updatedEvent];
+        
+        		this.calEvents = nextEvents;
+        		this.calendarOptions = {...this.calendarOptions, events: nextEvents};
+        		this.calEventsChange.emit(nextEvents);
+        		this.EventChanged.emit(updatedEvent);
         	}
         	/*End_c8o_CompFunction*/
         '
 ↓SharedComponent_Event [ngx.components.UISharedComponentEvent-1712319930139]: 
+  comment: |
+    Component lifecycle hook executed after the shared component view is initialized.
+    
+    Its child action carries the FullCalendar Angular imports, npm dependencies and Classic-theme styles required by the generated NGX application. The calendar itself is configured through calendarOptions and the <full-calendar> control.
   ↓InstallFullCalendar [ngx.components.UICustomAction-1712319939304]: 
+    app_ts_imports: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: '{ CalendarOptions }'
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/angular'
+    build_styles: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: node_modules/@fullcalendar/angular/skeleton.css
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: node_modules/@fullcalendar/angular/themes/classic/theme.css
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: node_modules/@fullcalendar/angular/themes/classic/palette.css
+    comment: |
+      'Build integration action for FullCalendar 7.
+      
+      Declares:
+      - @fullcalendar/angular 7.0.1
+      - fullcalendar 7.0.1
+      - temporal-polyfill 1.0.1
+      - FullCalendarModule and CalendarOptions imports
+      - skeleton.css plus the Classic theme and palette styles
+      
+      At runtime this action only writes a debug message and resolves. Its important purpose is the Convertigo build metadata, so it must remain enabled even though it contains no calendar initialization logic.'
+    local_module_ng_imports: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: FullCalendarModule
+    local_module_ts_imports: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: '{ FullCalendarModule }'
+              - java.lang.String: 
+                - ↑value: '@fullcalendar/angular'
     module_ng_imports: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -106,7 +253,7 @@ scriptContent:
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: FullCalendarModule
+                - ↑value: '{ FullCalendarModule }'
               - java.lang.String: 
                 - ↑value: '@fullcalendar/angular'
     package_dependencies: 
@@ -117,51 +264,23 @@ scriptContent:
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: '@fullcalendar/core'
-              - java.lang.String: 
-                - ↑value: 6.1.11
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: '@fullcalendar/interaction'
-              - java.lang.String: 
-                - ↑value: 6.1.11
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: '@fullcalendar/daygrid'
-              - java.lang.String: 
-                - ↑value: 6.1.11
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: '@fullcalendar/timegrid'
-              - java.lang.String: 
-                - ↑value: 6.1.11
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: '@fullcalendar/list'
-              - java.lang.String: 
-                - ↑value: 6.1.11
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
-                - ↑value: '@fullcalendar/multimonth'
-              - java.lang.String: 
-                - ↑value: 6.1.11
-          - xmlizable: 
-            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
-            - com.twinsoft.convertigo.beans.common.XMLVector: 
-              - java.lang.String: 
                 - ↑value: '@fullcalendar/angular'
               - java.lang.String: 
-                - ↑value: 6.1.10
+                - ↑value: 7.0.1
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: fullcalendar
+              - java.lang.String: 
+                - ↑value: 7.0.1
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: temporal-polyfill
+              - java.lang.String: 
+                - ↑value: 1.0.1
     page_ts_imports: 
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
@@ -170,10 +289,14 @@ scriptContent:
             - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
             - com.twinsoft.convertigo.beans.common.XMLVector: 
               - java.lang.String: 
-                - ↑value: CalendarOptions
+                - ↑value: '{ CalendarOptions }'
               - java.lang.String: 
-                - ↑value: '@fullcalendar/core'
+                - ↑value: '@fullcalendar/angular'
 ↓tag [ngx.components.UIElement-1712321874964]: 
+  comment: |
+    Angular host element rendered as <full-calendar>.
+    
+    The identifier "calendar" exposes the @fullcalendar/angular component instance to the shared-component script. It is used to retrieve the Calendar API for reactive operations such as setOption, changeView and gotoDate.
   identifier: calendar
   tagName: full-calendar
   ↓_options_ [ngx.components.UIAttribute-1712322009859]: 
@@ -182,26 +305,63 @@ scriptContent:
       - xmlizable: 
         - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
         - MobileSmartSourceType: script:this.calendarOptions
+    comment: |
+      Binds the FullCalendar Angular [options] input to this.calendarOptions.
+      
+      calendarOptions is assembled from the shared-component inputs and contains the event source, toolbar, view, locale, interaction flags, dimensions, plugins and callbacks. Do not replace this binding with a static value if reactive input updates must keep working.
 ↓locale [ngx.components.UICompVariable-1712324627888]: 
-  comment: Locale such as 'en', 'fr', 'es' ..
+  comment: |
+    'FullCalendar locale code or locale object. Default: ''en''.
+    
+    Examples: ''en'', ''fr'', ''es'', ''pt-br''. The locale affects month/day names, date formatting, button defaults, first day of week and other regional settings. The requested locale must be available to the generated application.
+    
+    Reactive: changing this input after initialization calls Calendar::setOption(''locale'', value).
+    
+    Custom labels supplied through buttonText take precedence for the mapped toolbar buttons.
+    
+    Documentation: https://fullcalendar.io/docs/locale'
   value: '''en'''
 ↓initialView [ngx.components.UICompVariable-1712328878434]: 
   comment: |
-    InitialDisplay such as 'dayGridMonth', 'timeGridWeek', 'listWeek', 'dayGridWeek', 'multiMonthYear'
+    'Exact FullCalendar view name displayed when the calendar starts. Default: ''dayGridMonth''.
     
+    Bundled view examples:
+    - dayGridMonth, dayGridWeek
+    - timeGridWeek, timeGridDay
+    - listDay, listWeek, listMonth, listYear
+    - multiMonthYear
+    
+    The corresponding plugin must be bundled. This component includes DayGrid, TimeGrid, List and MultiMonth.
+    
+    Reactive: changing this input after initialization calls Calendar::changeView(value).
+    
+    Documentation: https://fullcalendar.io/docs/initialView'
   value: '''dayGridMonth'''
 ↓headerToolbar [ngx.components.UICompVariable-1712331031263]: 
   comment: |
-    'A JSON Object representing the Header toolbar 
+    'FullCalendar header toolbar definition. Use left/center/right or start/center/end sections.
+    
+    Example:
     <pre>
     {
-        left: ''prev,next today'',
-        center: ''title'',
-        right: ''dayGridMonth,timeGridWeek,timeGridDay''
+      left: ''prev,next today'',
+      center: ''title'',
+      right: ''dayGridMonth,timeGridWeek,listWeek''
     }
     </pre>
     
-    '
+    Toolbar tokens include title, prev, next, prevYear, nextYear, today and exact view names.
+    
+    Important FullCalendar 7 syntax:
+    - comma-separated tokens are rendered as adjacent buttons;
+    - space-separated tokens are rendered as separate groups with a gap;
+    - do not insert a space immediately after a comma, otherwise an empty toolbar item can be rendered.
+    
+    Use an empty string for an empty section. FullCalendar also accepts false to hide the toolbar.
+    
+    Reactive: changing this input after initialization calls Calendar::setOption(''headerToolbar'', value).
+    
+    Documentation: https://fullcalendar.io/docs/headerToolbar'
   value: |
     '{
     			    left: ''prev,next today'',
@@ -210,18 +370,31 @@ scriptContent:
     			}'
 ↓buttonText [ngx.components.UICompVariable-1712331054546]: 
   comment: |
-    'A JSON Object representing the Button labels 
+    'Compatibility input for toolbar button labels.
+    
+    FullCalendar 7 removed the legacy buttonText option. This component converts this object into FullCalendar 7 buttons[name].text entries.
+    
+    Supported generic aliases:
+    - today -> today
+    - month -> dayGridMonth
+    - week -> dayGridWeek and timeGridWeek
+    - day -> timeGridDay
+    - list -> listDay, listWeek, listMonth and listYear
+    - year -> multiMonthYear
+    
+    Exact button/view names are also accepted, for example:
     <pre>
     {
-      today:    "Today",
-      month:    ''month'',
-      week:     ''week'',
-      day:      ''day'',
-      list:     ''list''
+      today: ''Today'',
+      dayGridMonth: ''Month'',
+      timeGridWeek: ''Week'',
+      listWeek: ''Agenda''
     }
     </pre>
     
-    '
+    Values must be display strings, not full button configuration objects. Reactive: changing this input reapplies the generated buttons option.
+    
+    Documentation: https://fullcalendar.io/docs/buttons'
   value: |
     '{
     			  today:    ''today'',
@@ -231,23 +404,34 @@ scriptContent:
     			  list:     ''list''
     			}'
 ↓selectable [ngx.components.UICompVariable-1712332668650]: 
-  comment: Enables the user to select events can be true or false
+  comment: |
+    'Enables FullCalendar date/time selection. Boolean, default: true.
+    
+    When enabled, users can select date ranges and selectMirror is enabled by this component. The Interaction plugin is bundled.
+    
+    Current wrapper limitation: no range-selection output is exposed. DateClicked emits individual date/time clicks only. Add a dedicated select callback/output if consumers need the selected range.
+    
+    Reactive: changing this input after initialization calls Calendar::setOption(''selectable'', value).
+    
+    Documentation: https://fullcalendar.io/docs/selectable'
   value: true
 ↓calEvents [ngx.components.UICompVariable-1712334912578]: 
   comment: |
-    'The initial events to be displayed in the calendar. An array of event objects of this structure :
-    <pre>
-    {
-      id: ''a'',
-      title: ''my event'',
-      start: ''2018-09-01''
-    }
-    </pre>
-    See Event documentation for details : https://fullcalendar.io/docs/event-object
+    'Array of FullCalendar event input objects displayed by the calendar.
     
-    Note that when a user resizes or modifies an event, this array will be automatically updated if you use two way binding.
+    Common fields:
+    - id: stable unique identifier
+    - title: visible label
+    - start: Date or ISO 8601 value
+    - end: optional exclusive end Date/ISO value
+    - allDay: all-day display flag
+    - editable, color, className and extendedProps: optional event settings
     
-    '
+    For editable events, id is required for reliable two-way synchronization. After an eventChange, the component replaces the matching item immutably, emits calEventsChange and emits EventChanged. An unknown id is appended; an event without id only triggers EventChanged and cannot be synchronized into this array.
+    
+    Replacing the input array reactively updates FullCalendar. Prefer a new array reference when changing events from the parent application.
+    
+    Documentation: https://fullcalendar.io/docs/event-object'
   value: |
     '[{
           id: ''a'',
@@ -256,49 +440,74 @@ scriptContent:
         }]'
 ↓initialDate [ngx.components.UICompVariable-1712388503624]: 
   comment: |
-    The initial date displayed when the calendar first loads.
+    'Date initially displayed by the calendar.
     
-    Date
+    Accepted values include a native JavaScript Date and values FullCalendar can parse, such as the ISO 8601 string ''2026-07-21''. When empty or omitted, FullCalendar uses the current date.
     
-    When not specified, this value defaults to the current date.
+    Reactive: changing this input after initialization calls Calendar::gotoDate(value). Empty, null and undefined updates are ignored by gotoDate.
     
-    This value can be anything that can parse into a Date, including an ISO8601 date string like "2014-02-01".
+    This controls the visible date, not the dates stored in calEvents.
+    
+    Documentation: https://fullcalendar.io/docs/initialDate'
   value: 
 ↓EventChanged [ngx.components.UICompEvent-1712392652901]: 
   attrName: EventChanged
   comment: |
-    Triggered when an event is modified by the user, the modified event object will be in the <pre>out</out>
+    'Emitted after FullCalendar reports an eventChange, including drag, resize or an Event API setter update.
     
+    Payload: the updated event returned by Event::toPlainObject(). Read it from the Convertigo event output (out).
+    
+    When the event has a stable id, calEvents is also updated immutably and calEventsChange is emitted for two-way binding. Events without id still emit EventChanged but are not written back into calEvents.
+    
+    This output is not an event-click notification; it only reports modifications.
+    
+    Documentation: https://fullcalendar.io/docs/eventChange'
 ↓height [ngx.components.UICompVariable-1712582692128]: 
   comment: |
-    Sets the height of the entire calendar, including header and footer.
+    'Height of the complete calendar, including its toolbar. Default: ''100%''.
     
-    Integer, "auto", a CSS value like "100%"
+    Accepted values:
+    - integer: fixed pixel height
+    - ''auto'': natural content height without internal scrollbars
+    - percentage or another valid CSS size such as ''100%'' or ''600px''
     
-    By default, this option is unset and the calendar’s height is calculated by aspectRatio.
+    With ''100%'', the parent container must itself have a resolved height.
     
-    If an integer is specified, the height of the calendar will be guaranteed to be that exact pixel height. If the contents will not fit within the height, scrollbars will appear.
+    Reactive: changing this input after initialization calls Calendar::setOption(''height'', value).
     
-    If "auto" is specified, the view’s contents will assume a natural height and no scrollbars will be used.
-    
-    If "100%" is specified, the height of the calendar will match the height of its parent container element. See an example. Any other valid CSS value is accepted as well.
-    
+    Documentation: https://fullcalendar.io/docs/height'
   value: '''100%'''
 ↓DateClicked [ngx.components.UICompEvent-1712591326517]: 
   attrName: DateClicked
   comment: |
-    Triggered when an event is modified by the user, the modified event object will be in the <pre>out</out>
+    'Emitted when the user clicks a date or time cell.
     
+    Payload: only the native JavaScript Date from FullCalendar dateClickInfo.date, available in the Convertigo event output (out). The wrapper does not expose dateStr, allDay, jsEvent, dayEl or the current view.
+    
+    The Interaction plugin required by dateClick is bundled. A click on a day heading in List view does not trigger dateClick.
+    
+    Documentation: https://fullcalendar.io/docs/dateClick'
 ↓editable [ngx.components.UICompVariable-1712680228036]: 
-  comment: Enables the user to edit events can be true or false
+  comment: |
+    'Controls whether calendar events can be modified by the user. Boolean, default: true.
+    
+    When enabled, FullCalendar permits event dragging and duration resizing where supported by the active view. Individual events can override this setting with editable, startEditable or durationEditable.
+    
+    A completed modification triggers EventChanged. With a stable event id, it also updates calEvents and emits calEventsChange.
+    
+    Reactive: changing this input after initialization calls Calendar::setOption(''editable'', value).
+    
+    Documentation: https://fullcalendar.io/docs/editable'
   value: true
 ↓multiMonthMaxColumns [ngx.components.UICompVariable-1712750753347]: 
   comment: |
-    'The maximum columns of months that Multi-Month Grid will attempt to render.
+    'Maximum number of month columns attempted by the MultiMonth view. Number, default: 3.
     
-    Number, default: 3
+    This option applies to views such as multiMonthYear. FullCalendar may automatically use fewer columns when the available width is insufficient. Set 1 to force a single vertical column of months.
     
-    By default, Multi-Month Grid will attempt to display 3 columns of mini-months. If there is insufficient space, requiring each month to be smaller than multiMonthMinWidth, fewer columns will be displayed.
+    The MultiMonth plugin is bundled by this component.
     
-    To display one single column of months, set multiMonthMaxColumns to 1.'
+    Reactive: changing this input after initialization calls Calendar::setOption(''multiMonthMaxColumns'', value).
+    
+    Documentation: https://fullcalendar.io/docs/multiMonthMaxColumns'
   value: 3

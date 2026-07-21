@@ -101,7 +101,7 @@ title: First page
                     'script:{
                     	left: ''prev,next today'',
                     	center: ''title'',
-                    	right: ''dayGridMonth, timeGridWeek, listWeek''
+                    	right: ''dayGridMonth,timeGridWeek,listWeek''
                     }'
           ↓buttonText [ngx.components.UIUseVariable-1712332019859]: 
             comment: |

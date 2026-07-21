@@ -28,7 +28,8 @@ comment: |
   - EventChanged: emits a plain event object after an event change.
   - calEventsChange: supports two-way binding when an editable event is changed.
   
-  FullCalendar documentation: https://fullcalendar.io/docs'
+  FullCalendar documentation: https://fullcalendar.io/docs
+  '
 scriptContent: 
   - xmlizable: 
     - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent

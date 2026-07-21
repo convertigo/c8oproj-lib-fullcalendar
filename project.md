@@ -48,7 +48,25 @@ FullCalendar 7.0.1 Standard wrapper for Convertigo NGX.
 
 Renders an interactive calendar through @fullcalendar/angular with the Classic theme and the bundled DayGrid, TimeGrid, List, MultiMonth and Interaction plugins. Premium Scheduler/resource views are not included.
 
-All public inputs are applied at initialization. locale, initialView, headerToolbar, buttonText, selectable, calEvents, editable, height, initialDate and multiMonthMaxColumns are also handled reactively after initialization.
+All public inputs are applied at initialization. locale, initialView, headerToolbar, buttonText, selectable, calEvents, editable, height, initialDate, multiMonthMaxColumns, eventTimeFormat, displayEventEnd, eventMinHeight, eventShortHeight and slotEventOverlap are also handled reactively after initialization.
+
+Styles
+The shared component deliberately contains no presentation CSS. The consuming application owns the appearance of events.
+
+The component exposes these stable CSS hooks:
+- occupied: every foreground event; retained for compatibility
+- c8o-fc-timegrid-event: timed event in TimeGrid week/day views
+- c8o-fc-event-inner: event inner container
+- c8o-fc-event-time: rendered time text
+- c8o-fc-event-title: rendered title
+
+Define rules in a global application UIStyle under Application > NgxApp. The demonstration project provides the dedicated NgxApp.FullCalendarStyle object as a complete copyable example. It is optional and is not embedded in the shared component.
+
+Use an event's color and contrastColor fields for its palette. Use className for application variants such as event--confirmed or event--cancelled. To style only one calendar instance, wrap its UIUseShared control in an application container class and prefix selectors with that class.
+
+Avoid FullCalendar generated fc-classic-* classes. They are internal implementation details; prefer the documented occupied and c8o-fc-* hooks.
+
+See the comment on NgxApp.FullCalendarStyle for installation steps, selector examples and per-event variants.
 
 Outputs:
 - DateClicked: emits the native JavaScript Date for a clicked date/time cell.
@@ -56,6 +74,7 @@ Outputs:
 - calEventsChange: supports two-way binding when an editable event is changed.
 
 FullCalendar documentation: https://fullcalendar.io/docs
+
 
 <span style="color:DarkGoldenRod">Variables</span>
 
@@ -113,13 +132,65 @@ Common fields:
 - start: Date or ISO 8601 value
 - end: optional exclusive end Date/ISO value
 - allDay: all-day display flag
-- editable, color, className and extendedProps: optional event settings
+- editable, color, contrastColor, className and extendedProps: optional event settings
+
+TimeGrid presentation example:
+<pre>
+{
+  id: 'meeting-1',
+  title: 'Project meeting',
+  start: '2026-07-21T10:00:00',
+  end: '2026-07-21T11:30:00',
+  color: '#2563eb',
+  contrastColor: '#ffffff',
+  className: 'event--confirmed',
+  extendedProps: {
+    location: 'Room 2',
+    status: 'confirmed'
+  }
+}
+</pre>
+
+Style-related fields
+- color: FullCalendar event background/border palette
+- contrastColor: readable foreground color for text and controls
+- className: application CSS class attached to the rendered event; write event--confirmed, not .event--confirmed
+- extendedProps: application metadata such as status, category or location; metadata is not styled automatically
+
+The component adds occupied to every foreground event and c8o-fc-timegrid-event to timed TimeGrid events. It also exposes c8o-fc-event-inner, c8o-fc-event-time and c8o-fc-event-title on their corresponding child elements.
+
+The shared component supplies no CSS rules for these hooks. Put the rules in a global UIStyle under the consuming application's NgxApp. The demonstration application's FullCalendarStyle object is a copyable example.
+
+Application variant example:
+<pre>
+full-calendar .event--confirmed {
+  border-inline-start-color: #16a34a;
+}
+</pre>
+
+Do not target generated fc-classic-* classes because they may change with FullCalendar releases.
 
 For editable events, id is required for reliable two-way synchronization. After an eventChange, the component replaces the matching item immutably, emits calEventsChange and emits EventChanged. An unknown id is appended; an event without id only triggers EventChanged and cannot be synchronized into this array.
 
 Replacing the input array reactively updates FullCalendar. Prefer a new array reference when changing events from the parent application.
 
-Documentation: https://fullcalendar.io/docs/event-object
+Documentation:
+https://fullcalendar.io/docs/event-object
+https://fullcalendar.io/docs/event-render-hooks
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;displayEventEnd
+</td>
+<td>
+Controls whether an event end time is displayed. Boolean, default: true.
+
+The end is shown only when the event has an end value and event time text is enabled. In narrow or short TimeGrid events FullCalendar may compact the presentation.
+
+Reactive: changing this input after initialization calls Calendar::setOption('displayEventEnd', value).
+
+Documentation: https://fullcalendar.io/docs/displayEventEnd
 </td>
 </tr>
 <tr>
@@ -136,6 +207,51 @@ A completed modification triggers EventChanged. With a stable event id, it also 
 Reactive: changing this input after initialization calls Calendar::setOption('editable', value).
 
 Documentation: https://fullcalendar.io/docs/editable
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;eventMinHeight
+</td>
+<td>
+Minimum height in pixels for timed events in TimeGrid views. Number, default: 28.
+
+A larger minimum improves title and time legibility for short events, but can increase visual overlap when many events occur close together.
+
+Reactive: changing this input after initialization calls Calendar::setOption('eventMinHeight', value).
+
+Documentation: https://fullcalendar.io/docs/eventMinHeight
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;eventShortHeight
+</td>
+<td>
+Height threshold in pixels below which a TimeGrid event uses FullCalendar short-event layout. Number, default: 36.
+
+Keep this value greater than or equal to eventMinHeight. The built-in typography is designed for the default 28/36 combination.
+
+Reactive: changing this input after initialization calls Calendar::setOption('eventShortHeight', value).
+
+Documentation: https://fullcalendar.io/docs/eventShortHeight
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;eventTimeFormat
+</td>
+<td>
+Date-format object used for the time text displayed inside events.
+
+Default: 24-hour hours and minutes. With displayEventEnd enabled, a timed event is rendered as a range such as 10:00 - 11:30 when enough space is available.
+
+Example:
+<pre>{ hour: '2-digit', minute: '2-digit', hour12: false }</pre>
+
+Reactive: changing this input after initialization calls Calendar::setOption('eventTimeFormat', value).
+
+Documentation: https://fullcalendar.io/docs/eventTimeFormat
 </td>
 </tr>
 <tr>
@@ -269,6 +385,22 @@ Current wrapper limitation: no range-selection output is exposed. DateClicked em
 Reactive: changing this input after initialization calls Calendar::setOption('selectable', value).
 
 Documentation: https://fullcalendar.io/docs/selectable
+</td>
+</tr>
+<tr>
+<td>
+<img src="https://github.com/convertigo/convertigo/blob/develop/engine/src/com/twinsoft/convertigo/beans/ngx/components/images/uicompvariable_16x16.png?raw=true "  alt="UICompVariable" >&nbsp;slotEventOverlap
+</td>
+<td>
+Controls whether concurrent timed events visually overlap in TimeGrid views. Boolean, default: false.
+
+false keeps concurrent events side by side without covering each other, which favors readability. true allows partial visual overlap and can leave more horizontal width for each event.
+
+This option affects presentation only; eventOverlap separately controls whether drag/resize operations may create overlaps.
+
+Reactive: changing this input after initialization calls Calendar::setOption('slotEventOverlap', value).
+
+Documentation: https://fullcalendar.io/docs/slotEventOverlap
 </td>
 </tr>
 </table>

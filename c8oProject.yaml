@@ -7,7 +7,7 @@
     ![Convertigo FullCalendar](./docImg/FullCalendar.png)
     '
   corsOrigin: =Origin
-  version: 8.4.0.4
+  version: 8.4.0.5
   ↓void [connectors.SqlConnector]: 🗏 connectors/void.yaml
   ↓Project_reference [references.ProjectSchemaReference]: 
     projectName: mobilebuilder_tpl_8_4_0_ngx=https://github.com/convertigo/c8oprj-mobilebuilder-tpl/archive/mobilebuilder_tpl_8_4_0_ngx.zip

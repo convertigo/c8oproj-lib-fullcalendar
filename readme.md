@@ -10,7 +10,6 @@ Use this library to provide Calendar with multiple views to your applications. t
 
 
 
-
 For more technical informations : [documentation](./project.md)
 
 - [Installation](#installation)

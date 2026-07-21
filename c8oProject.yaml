@@ -5,7 +5,6 @@
     Use this library to provide Calendar with multiple views to your applications. the library is based on the FullCalendar component https://fullcalendar.io/
     
     ![Convertigo FullCalendar](./docImg/FullCalendar.png)
-    
     '
   corsOrigin: =Origin
   version: 8.4.0.4

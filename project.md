@@ -7,7 +7,6 @@ Use this library to provide Calendar with multiple views to your applications. t
 ![Convertigo FullCalendar](./docImg/FullCalendar.png)
 
 
-
 <details><summary><span style="color:DarkGoldenRod"><i>Connectors</i></span></summary><blockquote><p>
 
 

@@ -83,7 +83,7 @@ title: First page
             varValue: 
               - xmlizable: 
                 - ↑classname: com.twinsoft.convertigo.beans.ngx.components.MobileSmartSourceType
-                - MobileSmartSourceType: script:'dayGridWeek'
+                - MobileSmartSourceType: script:'timeGridWeek'
           ↓headerToolbar [ngx.components.UIUseVariable-1712332019857]: 
             comment: |
               'A JSON Object representing the Header toolbar 
@@ -237,42 +237,56 @@ title: First page
         - com.twinsoft.convertigo.beans.common.FormatedContent: 
           →: |
             '		page.c8o.log.debug(''[MB] ''+ props.actionFunction +'': ''+ props.actionName);
-            		
-            		// Function to add days to a date
-            		let addDays = function (days) {
-            		  const result = new Date();
-            		  result.setDate(result.getDate() + days);
-            		  return result;
-            		}
             
-            		// Function to add random minutes to a date
-            		let addRandomMinutes = function (date, maxMinutes) {
-            		  const result = new Date(date);
-            		  const randomMinutes = Math.floor(Math.random() * maxMinutes);
-            		  result.setMinutes(result.getMinutes() + randomMinutes);
-            		  return result;
-            		}
-            		
-            		let events =[];
-            		
-            		// build a list of events with a random date
-            			
-            		let startDate = new Date()
-            		for (let i = 0; i<10; i++) {
-            			let randomDay = Math.floor(Math.random() * 7);
-              			let baseDate = addDays(randomDay);
+            		const today = new Date();
+            		const monday = new Date(today);
+            		const dayFromMonday = (today.getDay() + 6) % 7;
+            		monday.setDate(today.getDate() - dayFromMonday);
+            		monday.setHours(0, 0, 0, 0);
             
-            			// Assume a week has 10,080 minutes (7 days * 24 hours * 60 minutes)
-            			// Generate a random time within the week to add
-            			let dateWithRandomTime = addRandomMinutes(baseDate, 10080 / 10);
-            			events.push({
-            		      id: ''ID-'' + i,
-            		      title: ''my Demo Event'' + i,
-            		      start: dateWithRandomTime
-            			})
-            		}
+            		const at = (dayOffset, hour, minute = 0) => {
+            			const date = new Date(monday);
+            			date.setDate(monday.getDate() + dayOffset);
+            			date.setHours(hour, minute, 0, 0);
+            			return date;
+            		};
+            
+            		const events = [
+            			{
+            				id: ''meeting-1'',
+            				title: ''Réunion projet'',
+            				start: at(1, 10),
+            				end: at(1, 11, 30),
+            				color: ''#2563eb'',
+            				contrastColor: ''#ffffff'',
+            				className: ''event--confirmed'',
+            				extendedProps: {location: ''Salle 2'', status: ''confirmed''}
+            			},
+            			{
+            				id: ''workshop-1'',
+            				title: ''Atelier design'',
+            				start: at(2, 14),
+            				end: at(2, 15),
+            				color: ''#7c3aed'',
+            				contrastColor: ''#ffffff'',
+            				className: ''event--workshop'',
+            				extendedProps: {location: ''Studio'', status: ''confirmed''}
+            			},
+            			{
+            				id: ''call-1'',
+            				title: ''Point client'',
+            				start: at(3, 9, 30),
+            				end: at(3, 10),
+            				color: ''#059669'',
+            				contrastColor: ''#ffffff'',
+            				className: ''event--customer'',
+            				extendedProps: {location: ''Visio'', status: ''confirmed''}
+            			}
+            		];
+            
             		resolve(events);
             '
+    comment: Builds deterministic colored events in the current week to demonstrate the shared component TimeGrid presentation, end-time display, custom className and extendedProps support.
     ↓SetLocal [ngx.components.UIDynamicAction-1712335189451]: 
       beanData: |
         '{

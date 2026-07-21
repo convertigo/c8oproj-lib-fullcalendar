@@ -67,7 +67,7 @@ tplProjectName: mobilebuilder_tpl_8_4_0_ngx
 ↓FullCalendar [ngx.components.UISharedRegularComponent-1712319869407]: 🗏 mobileSharedComponents/FullCalendar.yaml
 ↓Page [ngx.components.PageComponent-1500538678074]: 🗏 mobilePages/Page.yaml
 ↓Style [ngx.components.UIStyle-1491635462437]: 
-  comment: You can add some global application styles here
+  comment: Global application styles.
   styleContent: 
     - xmlizable: 
       - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
@@ -448,3 +448,125 @@ tplProjectName: mobilebuilder_tpl_8_4_0_ngx
           /** Ionic CSS Variables **/
           
           
+↓FullCalendarStyle [ngx.components.UIStyle-1784635053457]: 
+  comment: |
+    'Application-owned FullCalendar event presentation example.
+    
+    Purpose
+    This UIStyle is an optional example for applications that consume the FullCalendar shared component. The shared component does not depend on it and contains no presentation CSS. Removing or replacing this object does not affect calendar behavior.
+    
+    Where to install it
+    Place or copy the complete UIStyle under:
+    Application > NgxApp > FullCalendarStyle
+    
+    An application-level UIStyle is recommended because @fullcalendar/angular renders event elements inside its own Angular component. A style placed inside the shared component or an encapsulated page may not reach that generated DOM.
+    
+    How to reuse it
+    1. Copy this FullCalendarStyle object into the consuming application''s NgxApp.
+    2. Keep the full-calendar selector prefix to avoid styling unrelated controls.
+    3. Change colors, spacing, typography, borders, shadows and hover behavior as required by the application.
+    4. Remove any rule the application does not need. No rule in this object is mandatory.
+    
+    Stable CSS hooks supplied by the shared component
+    - occupied: every foreground event; retained for compatibility
+    - c8o-fc-timegrid-event: timed event in TimeGrid week/day views
+    - c8o-fc-event-inner: event inner container
+    - c8o-fc-event-time: rendered event time
+    - c8o-fc-event-title: rendered event title
+    
+    Example
+    <pre>
+    full-calendar .c8o-fc-timegrid-event {
+      border-radius: 7px;
+    }
+    
+    full-calendar .c8o-fc-event-title {
+      font-weight: 600;
+    }
+    </pre>
+    
+    Per-event variants
+    Set className on an event without the CSS dot:
+    <pre>
+    {
+      title: ''Project meeting'',
+      start: ''2026-07-21T10:00:00'',
+      className: ''event--confirmed''
+    }
+    </pre>
+    
+    Then style the application-defined class:
+    <pre>
+    full-calendar .event--confirmed {
+      border-inline-start-color: #16a34a;
+    }
+    
+    full-calendar .event--cancelled {
+      opacity: 0.55;
+      text-decoration: line-through;
+    }
+    </pre>
+    
+    Styling one calendar instance
+    Wrap the shared-component use in an application container carrying a class such as planning-calendar, then prefix rules:
+    <pre>
+    .planning-calendar full-calendar .c8o-fc-event-title {
+      font-size: 14px;
+    }
+    </pre>
+    
+    Colors
+    Prefer the FullCalendar event fields color and contrastColor for event-specific palettes. Use className when a status or category needs additional CSS.
+    
+    Compatibility
+    Use the occupied, c8o-fc-* and application-defined className hooks. Do not target generated fc-classic-* classes because their names are FullCalendar implementation details and may change between versions.
+    
+    FullCalendar event rendering documentation:
+    https://fullcalendar.io/docs/event-render-hooks'
+  styleContent: 
+    - xmlizable: 
+      - ↑classname: com.twinsoft.convertigo.beans.common.FormatedContent
+      - com.twinsoft.convertigo.beans.common.FormatedContent: 
+        →: |
+          '/* FullCalendar demo presentation.
+           * Application-owned: consuming applications may replace or omit this block.
+           */
+          full-calendar .c8o-fc-timegrid-event {
+            border: 0;
+            border-inline-start: 4px solid rgba(15, 23, 42, 0.35);
+            border-inline-start-color: color-mix(in srgb, var(--fc-event-color) 72%, #0f172a);
+            border-radius: 7px;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
+            overflow: hidden;
+            transition: box-shadow 120ms ease, filter 120ms ease, transform 120ms ease;
+          }
+          
+          full-calendar .c8o-fc-timegrid-event .c8o-fc-event-inner {
+            padding: 2px 4px;
+          }
+          
+          full-calendar .c8o-fc-timegrid-event .c8o-fc-event-time {
+            font-size: 11px;
+            font-weight: 500;
+            line-height: 1.15;
+            opacity: 0.85;
+          }
+          
+          full-calendar .c8o-fc-timegrid-event .c8o-fc-event-title {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.2;
+          }
+          
+          full-calendar .c8o-fc-timegrid-event:hover,
+          full-calendar .c8o-fc-timegrid-event:focus-visible {
+            filter: brightness(0.96);
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+            transform: translateY(-1px);
+          }
+          
+          @media (prefers-reduced-motion: reduce) {
+            full-calendar .c8o-fc-timegrid-event {
+              transition: none;
+            }
+          }'
